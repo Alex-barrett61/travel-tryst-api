@@ -2,7 +2,7 @@ const pg = require('pg');
 
 const { Client, Pool } = pg;
 
-module.exports = class Postgres {
+class Postgres {
   _client;
   _pool;
 
@@ -28,4 +28,6 @@ module.exports = class Postgres {
     const { rows } = await this._pool.query(expression, args);
     return rows;
   }
-};
+}
+
+module.exports = Postgres;

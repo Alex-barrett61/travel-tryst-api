@@ -6,8 +6,14 @@ class PostController {
   /**
    * @param {string} id
    */
-  static Get(id) {
-    return this.Model.Get(id);
+  static async Get(id) {
+    const post = await this.Model.Get(id);
+
+    if (!post) {
+      console.log('post not found');
+      return {};
+    }
+    return post;
   }
 }
 
