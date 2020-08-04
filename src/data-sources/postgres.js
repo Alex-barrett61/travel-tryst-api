@@ -1,18 +1,21 @@
 const pg = require('pg');
 
-const { Client, Pool } = pg;
+const { Client } = pg;
 
 class Postgres {
   _client;
-  _pool;
 
-  constructor(options) {
-    this._client = new Client();
-    this._pool = new Pool(options);
+  /**
+   *
+   * @param {string} connectionUrl
+   */
+  constructor(connectionUrl) {
+    this._client = new Client(connectionUrl);
   }
 
   async connect() {
-    this._client.connect();
+    await this._client.connect();
+    await this._client.query('SELECT 1 + 1'); // make sure the connection is initialized
   }
 
   disconnect() {
@@ -25,7 +28,7 @@ class Postgres {
    * @param {string[]} args
    */
   async query(expression, args) {
-    const { rows } = await this._pool.query(expression, args);
+    const { rows } = await this._client.query(expression, args);
     return rows;
   }
 }

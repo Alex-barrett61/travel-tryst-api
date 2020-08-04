@@ -1,10 +1,4 @@
 module.exports = {
-  postgres: {
-    user: 'me',
-    host: 'localhost',
-    database: 'social',
-    password: 'password',
-    port: 5432,
-  },
+  postgresUrl: process.env.POSTGRES_URL || '',
   port: '3000',
 };
