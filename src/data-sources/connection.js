@@ -1,4 +1,5 @@
 const { postgresUrl } = require('config');
 const Postgres = require('./postgres');
 
-module.exports = new Postgres(postgresUrl);
+const connection = new Postgres(postgresUrl);
+module.exports = connection;
