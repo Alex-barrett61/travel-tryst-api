@@ -22,7 +22,12 @@ class PostModel {
    */
   static async Get(id) {
     try {
-      const rows = await connection.query('SELECT * FROM posts WHERE id = $1', [id]);
+      const rows = await connection.query(
+        'SELECT id, title, body, user_id as "userId" ' +
+        'FROM posts ' +
+        'WHERE id = $1',
+        [id]
+      );
       return rows[0];
     }
     catch (error) {
