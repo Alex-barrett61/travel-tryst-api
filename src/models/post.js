@@ -25,7 +25,7 @@ class PostModel {
       const rows = await connection.query(
         'SELECT id, title, body, user_id as "userId" ' +
         'FROM posts ' +
-        'WHERE id = $1',
+        'WHERE id = $1;',
         [id]
       );
       return rows[0];

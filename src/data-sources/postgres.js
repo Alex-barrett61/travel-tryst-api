@@ -15,7 +15,7 @@ class Postgres {
 
   async connect() {
     await this._client.connect();
-    await this._client.query('SELECT 1 + 1'); // make sure the connection is initialized
+    await this._client.query('SELECT 1 + 1;'); // make sure the connection is initialized
   }
 
   disconnect() {
