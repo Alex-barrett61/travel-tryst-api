@@ -1,4 +1,4 @@
-const connection = require('../data-sources/connection');
+const { postgres } = require('../data-sources/connections');
 
 class PostModel {
   title;
@@ -22,7 +22,7 @@ class PostModel {
    */
   static async Get(id) {
     try {
-      const rows = await connection.query(
+      const rows = await postgres.query(
         'SELECT id, title, body, user_id as "userId" ' +
         'FROM posts ' +
         'WHERE id = $1;',
