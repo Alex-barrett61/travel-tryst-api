@@ -1,4 +1,4 @@
-const pg = require('pg');
+const pg = require('pg').native;
 
 const { Client } = pg;
 
@@ -15,7 +15,6 @@ class Postgres {
 
   async connect() {
     await this._client.connect();
-    await this._client.query('SELECT 1 + 1;'); // make sure the connection is initialized
   }
 
   disconnect() {
