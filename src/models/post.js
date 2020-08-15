@@ -1,6 +1,6 @@
-const { postgres } = require('../data-sources/connections');
+const Model = require('./model');
 
-class PostModel {
+class PostModel extends Model {
   title;
   body;
   userId;
@@ -12,6 +12,7 @@ class PostModel {
    * @param {string} userId
    */
   constructor(title, body, userId) {
+    super();
     this.title = title;
     this.body = body;
     this.userId = userId;
@@ -22,7 +23,7 @@ class PostModel {
    */
   static async Get(id) {
     try {
-      const rows = await postgres.query(
+      const rows = await this.postgres.query(
         'SELECT id, title, body, user_id as "userId" ' +
         'FROM posts ' +
         'WHERE id = $1;',
