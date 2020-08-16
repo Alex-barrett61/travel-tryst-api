@@ -18,7 +18,7 @@ class Postgres {
   }
 
   disconnect() {
-    this._client.disconnect();
+    this._client.end();
   }
 
   /**
