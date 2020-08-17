@@ -1,12 +1,8 @@
+/**
+ * our base service class. All our services will be extended from here
+ */
 class Service {
-  headers;
-  params;
-  body;
-
   constructor(request) {
-    this.headers = request.headers;
-    this.params = request.params;
-    this.body = request.body;
   }
 }
 

@@ -1,3 +1,6 @@
+/**
+ * our base controller class. All controllers will be extended from here.
+ */
 class Controller {
   _model;
 

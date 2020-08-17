@@ -1,6 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+/**
+ * our express server. starts up on the provided point and applies the middleware we need
+ */
 class Server {
   port;
   listener;
