@@ -6,7 +6,7 @@ class HealthCheckService extends Service {
   }
 
   healthCheck() {
-    this.response.json({ info: 'we good' });
+    return { info: 'we good' };
   }
 }
 

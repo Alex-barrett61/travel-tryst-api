@@ -1,10 +1,12 @@
 class Service {
-  request;
-  response;
+  headers;
+  params;
+  body;
 
-  constructor(request, response) {
-    this.request = request;
-    this.response = response;
+  constructor(request) {
+    this.headers = request.headers;
+    this.params = request.params;
+    this.body = request.body;
   }
 }
 

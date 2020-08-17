@@ -7,13 +7,12 @@ class PostService extends Service {
   }
 
   async get() {
-    const { id } = this.request.params;
+    const { id } = this.params;
 
     console.log('fetching post by id', id);
     const post = await PostController.Get(id);
     console.log('returning post', post);
-
-    this.response.json(post);
+    return post;
   }
 }
 
