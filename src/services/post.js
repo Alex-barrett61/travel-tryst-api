@@ -6,9 +6,12 @@ class PostService extends Service {
     super(...args);
   }
 
-  async get() {
-    const { id } = this.params;
-
+  /**
+   *
+   * @param {string} id - the id of a single post
+   * @returns {Promise<object>}
+   */
+  async get(id) {
     console.log('fetching post by id', id);
     const post = await PostController.Get(id);
     console.log('returning post', post);
