@@ -1,13 +1,16 @@
+const Controller = require('./controller');
 const PostModel = require('../models/post');
 
-class PostController {
-  static Model = PostModel;
+class PostController extends Controller {
+  constructor() {
+    super(PostModel);
+  }
 
   /**
    * @param {string} id
    */
-  static async Get(id) {
-    const post = await this.Model.Get(id);
+  async get(id) {
+    const post = await this.model.Get(id);
 
     if (!post) {
       console.log('post not found');

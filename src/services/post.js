@@ -4,6 +4,7 @@ const PostController = require('../controllers/post');
 class PostService extends Service {
   constructor(...args) {
     super(...args);
+    this.controller = new PostController();
   }
 
   /**
@@ -13,7 +14,7 @@ class PostService extends Service {
    */
   async get(id) {
     console.log('fetching post by id', id);
-    const post = await PostController.Get(id);
+    const post = await this.controller.get(id);
     console.log('returning post', post);
     return post;
   }
