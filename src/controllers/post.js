@@ -18,6 +18,18 @@ class PostController extends Controller {
     }
     return post;
   }
+
+  /**
+   *
+   * @param {string} title
+   * @param {string} body
+   * @returns {Promise<void>}
+   */
+  async create(title, body) {
+    const post = new this.model(title, body, 'test', 'test');
+    console.log(post);
+    const response = await this.model.Insert(post);
+  }
 }
 
 module.exports = PostController;
