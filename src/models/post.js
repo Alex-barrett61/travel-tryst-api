@@ -31,7 +31,7 @@ class PostModel extends Model {
   static async Get(id) {
     try {
       const rows = await this.postgres.query(
-        'SELECT id, title, body, user_id as "userId" ' +
+        'SELECT id, title, body, user_id AS "userId", photo_url AS "photoUrl", likes ' +
         'FROM posts ' +
         'WHERE id = $1;',
         [id]
