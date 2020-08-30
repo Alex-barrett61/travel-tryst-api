@@ -18,6 +18,11 @@ class PostService extends Service {
     console.log('returning post', post);
     return post;
   }
+
+  async create(data) {
+    const { title, body } = data;
+    return this.controller.create(title, body);
+  }
 }
 
 module.exports = PostService;

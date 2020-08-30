@@ -15,6 +15,7 @@ const PostService = require('./services/post');
 function initRoutes(express) {
   express.get('/', async (req, res) => callService(HealthCheckService, 'healthCheck', [], req, res));
   express.get('/post/:id', async (req, res) => callService(PostService, 'get', ['params.id'], req, res));
+  express.post('/post', async (req, res) => callService(PostService, 'create', ['body.data'], req, res));
 }
 
 /**
