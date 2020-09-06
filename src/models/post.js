@@ -47,20 +47,39 @@ class PostModel extends Model {
   /**
    *
    * @param post
+   *
    */
   static async Insert(post) {
     try {
-      const rows = await this.postgres.query(
-        'SELECT id, title, body, user_id as "userId" ' +
-        'FROM posts ' +
-        'WHERE id = $1;',
-        [id]
+      const { id, title, body, userId, photoUrl } = post;
+
+      await this.postgres.query(
+        'INSERT INTO posts (id, title, body, user_id, photo_url)'
+        + 'VALUES ($1, $2, $3, $4, $5);',
+        [id, title, body, userId, photoUrl]
       );
-      return rows[0];
+      return { id };
     }
     catch (error) {
       console.log('Error creating post', error);
       return {};
+    }
+  }
+
+  /**
+   *
+   * @param {string} id
+   *
+   */
+  static async Delete(id) {
+    console.log(id);
+    try {
+      await this.postgres.query('DELETE FROM posts WHERE id = $1 RETURNING *;', [id]);
+      return true;
+    }
+    catch (error) {
+      console.log('Error deleting post', error);
+      return false;
     }
   }
 }
