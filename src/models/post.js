@@ -46,12 +46,12 @@ class PostModel extends Model {
 
   /**
    *
-   * @param posts
+   * @param post
    *
    */
-  static async Insert(posts) {
+  static async Insert(post) {
     try {
-      const { id, title, body, userId, photoUrl } = posts;
+      const { id, title, body, userId, photoUrl } = post;
 
       await this.postgres.query(
         'INSERT INTO posts (id, title, body, user_id, photo_url)'
