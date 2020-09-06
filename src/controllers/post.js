@@ -27,9 +27,16 @@ class PostController extends Controller {
    */
   async create(title, body) {
     const post = new this.model(title, body, 'test', 'test');
-    console.log(post);
-    const response = await this.model.Insert(post);
+    return this.model.Insert(post);
+  }
+
+  /**
+   *
+   * @param {string} id
+   * @returns {Promise<boolean>}
+   */
+  async delete(id) {
+    return this.model.Delete(id);
   }
 }
-
-module.exports = PostController;
+  module.exports = PostController;
