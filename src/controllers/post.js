@@ -38,5 +38,17 @@ class PostController extends Controller {
   async delete(id) {
     return this.model.Delete(id);
   }
+  /**
+   *
+   * @param {string} title
+   * @param {string} body
+   * @param {string} id
+   * @returns {Promise<void>}
+   */
+
+  async update(title, body,id) {
+    const update = new this.model(title, body, 'test', 'test');
+    return this.model.update(id, update);
+  }
 }
   module.exports = PostController;

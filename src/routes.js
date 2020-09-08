@@ -16,7 +16,7 @@ function initRoutes(express) {
   express.get('/', async (req, res) => callService(HealthCheckService, 'healthCheck', [], req, res));
   express.get('/post/:id', async (req, res) => callService(PostService, 'get', ['params.id'], req, res));
   express.post('/post', async (req, res) => callService(PostService, 'create', ['body.data'], req, res));
-  //express.put('/post/:id', async (req, res) => callService(PostService, 'update', ['body.data'], req, res));
+  express.put('/post/:id', async (req, res) => callService(PostService, 'update', ['params.id','body.data'], req, res));
   express.delete('/post/:id', async (req, res) => callService(PostService, 'delete', ['params.id'], req, res));
 }
 

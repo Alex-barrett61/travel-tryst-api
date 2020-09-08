@@ -82,6 +82,30 @@ class PostModel extends Model {
       return false;
     }
   }
+
+  /**
+   *
+   * @param {string} id
+   * @param {object} update
+   */
+  static async update(id, update) {
+    try {
+      const { title, body, userId, photoUrl } = update;
+      console.log(this.update);
+      await this.postgres.query(
+        'UPDATE posts ' +
+        'SET id = $1, title = $2, body = $3, user_id = $4, photo_url = $5 ' +
+        'WHERE id = $1;',
+        [id, title, body, userId, photoUrl]
+      );
+
+      return { id };
+    }
+    catch (error) {
+      console.log('Error updating post', error);
+      return {};
+    }
+  }
 }
 
 module.exports = PostModel;
