@@ -30,6 +30,11 @@ class PostService extends Service {
   async delete(id) {
     return this.controller.delete(id);
   }
+
+  async update(id, data) {
+    const{title, body}= data;
+    return this.controller.update(title, body, id);
+  }
 }
 
 module.exports = PostService;
