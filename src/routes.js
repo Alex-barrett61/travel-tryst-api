@@ -2,6 +2,7 @@ const HealthCheckService = require('./services/healthCheck');
 const PostService = require('./services/post');
 const CommentService = require('./services/comment');
 const UserService = require('./services/user');
+const SessionService = require('./services/session');
 
 /**
  *
@@ -15,7 +16,10 @@ const UserService = require('./services/user');
  * pieces and scaled individually as needed.
  */
 function initRoutes(express) {
-  express.get('/', async (req, res) => callService(HealthCheckService, 'healthCheck', [], req, res));
+  express.all('/*', async (req, res) => callMiddleware(SessionService, 'sessionMiddleware', [], req, res));
+
+  express.get('/login/:email/:password', async (req, res) => callService(SessionService, 'login', ['params.email', 'params.password'], req, res));
+  express.get('/health', async (req, res) => callService(HealthCheckService, 'healthCheck', [], req, res));
   express.get('/post/:id/comments', async (req, res) => callService(PostService, 'getComments', ['params.id'], req, res));
   express.get('/post/:id', async (req, res) => callService(PostService, 'get', ['params.id'], req, res));
   express.post('/post', async (req, res) => callService(PostService, 'create', ['body.data'], req, res));
@@ -46,7 +50,12 @@ function initRoutes(express) {
  */
 async function callService(service, method, expectedArgs, request, response) {
   const methodArgs = parseServiceArguments(expectedArgs, request);
-  response.json(await (new service(request))[method](...methodArgs));
+  response.json(await (new service(request, response))[method](...methodArgs));
+}
+
+async function callMiddleware(service, method, expectedArgs, request, response) {
+  const methodArgs = parseServiceArguments(expectedArgs, request);
+  await (new service(request, response))[method](...methodArgs);
 }
 
 /**

@@ -28,7 +28,7 @@ class PostModel extends Model {
   /**
    * @param {string} id
    */
-  static async getComments(id) {
+  static async GetComments(id) {
     try {
       const rows = await this.postgres.query(
         'SELECT id, body, user_id, post_id ' +

@@ -41,7 +41,7 @@ class UserController extends Controller {
    *
    */
   async create(email, name, password, phone)  {
-    const user = new this.model(email, name,);
+    const user = new this.model(email, name, password, phone);
     console.log(user)
     return this.model.Insert(user);
   }

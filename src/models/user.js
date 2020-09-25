@@ -47,7 +47,7 @@ class UserModel extends Model {
   static async Get(id) {
     try {
       const rows = await this.postgres.query(
-        'SELECT id, name, email, password, phone FROM users WHERE id = $1;',
+        'SELECT id, name, email, phone FROM users WHERE id = $1;',
         [id]
       );
       return rows[0];
