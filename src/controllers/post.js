@@ -5,6 +5,7 @@ class PostController extends Controller {
   constructor() {
     super(PostModel);
   }
+
   /**
    * @param {string} id
    */
@@ -17,6 +18,7 @@ class PostController extends Controller {
     }
     return post;
   }
+
   /**
    * @param {string} id
    */
@@ -37,9 +39,9 @@ class PostController extends Controller {
    * @param {string} userId
    * @returns {Promise<void>}
    */
-  async create(title, body,userId) {
+  async create(title, body, userId) {
     const post = new this.model(title, body, userId, 'test');
-    console.log(post)
+    console.log(post);
     return this.model.Insert(post);
   }
 
@@ -51,6 +53,7 @@ class PostController extends Controller {
   async delete(id) {
     return this.model.Delete(id);
   }
+
   /**
    *
    * @param {string} title
@@ -60,9 +63,10 @@ class PostController extends Controller {
    * @returns {Promise<void>}
    */
 
-  async update(title, body,userId,id) {
+  async update(title, body, userId, id) {
     const update = new this.model(title, body, userId, 'test');
     return this.model.update(id, update);
   }
 }
-  module.exports = PostController;
+
+module.exports = PostController;

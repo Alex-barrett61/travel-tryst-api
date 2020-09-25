@@ -70,7 +70,6 @@ class PostModel extends Model {
   static async Insert(post) {
     try {
       const { id, title, body, userId, photoUrl } = post;
-    console.log('got here',id)
       await this.postgres.query(
         'INSERT INTO posts (id, title, body, user_id, photo_url)'
         + 'VALUES ($1, $2, $3, $4, $5);',

@@ -23,6 +23,7 @@ class UserModel extends Model {
     this.password = password;
     this.phone = phone;
   }
+
   /**
    * @param {string} id
    */
@@ -56,6 +57,7 @@ class UserModel extends Model {
       return {};
     }
   }
+
   /**
    *
    * @param user
@@ -64,7 +66,7 @@ class UserModel extends Model {
   static async Insert(user) {
     try {
       const { id, name, email, phone, password } = user;
-      console.log('got here',id)
+      console.log('got here', id);
       this.postgres.query(
         'INSERT INTO users (id, name, email, password, phone)'
         + 'VALUES ($1, $2, $3, $4, $5);',
@@ -77,6 +79,7 @@ class UserModel extends Model {
       return {};
     }
   }
+
   /**
    *
    * @param {string} id
@@ -92,14 +95,16 @@ class UserModel extends Model {
       console.log('Error deleting users', error);
       return false;
     }
-  }/**
+  }
+
+  /**
    *
    * @param {string} id
    * @param {object} update
    */
   static async update(id, update) {
     try {
-      const {id, email, name, phone, password } = update;
+      const { id, email, name, phone, password } = update;
       console.log(this.update);
       await this.postgres.query(
         'UPDATE users SET id = $1, name = $2, email = $3, password = $4, phone = $5 WHERE id = $1;',
@@ -115,4 +120,5 @@ class UserModel extends Model {
   }
 
 }
-  module.exports = UserModel;
+
+module.exports = UserModel;

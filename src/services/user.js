@@ -18,19 +18,23 @@ class UserService extends Service {
     console.log('returning user', user);
     return id;
   }
+
   async get(id) {
     console.log('fetching user by id', id);
     const user = await this.controller.get(id);
     console.log('returning user', user);
     return user;
   }
+
   async create(data) {
     const { email, name, password, phone } = data;
     return this.controller.create(email, name, password, phone);
   }
+
   async delete(id) {
   return this.controller.delete(id);
 }
+
   async update(id, data) {
     const { email, name, password, phone }= data;
     return this.controller.update(email, name, password, phone,id);

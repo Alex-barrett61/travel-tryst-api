@@ -15,8 +15,11 @@ class CommentController extends Controller {
     if (!comment) {
       console.log('comment not found');
       return {};
+
     }
+
     return comment;
+
   }
   /**
    *

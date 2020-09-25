@@ -6,6 +6,7 @@ class PostService extends Service {
     super(...args);
     this.controller = new PostController();
   }
+
   /**
    *
    * @param {string} id - the id of a single post
@@ -31,7 +32,6 @@ class PostService extends Service {
   }
 
   async create(data) {
-    console.log('got here')
     const { title, body,userId } = data;
     return this.controller.create(title, body,userId);
   }

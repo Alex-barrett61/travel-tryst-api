@@ -17,14 +17,17 @@ class CommentService extends Service {
     console.log('returning comment', comment);
     return comment;
   }
+
   async create(data) {
     const { body } = data;
     return this.controller.create(body);
   }
+
   async update(id, data) {
     const { body }= data;
     return this.controller.update(body,id);
   }
+
   async delete(id) {
     return this.controller.delete(id);
   }

@@ -5,6 +5,7 @@ class UserController extends Controller {
   constructor() {
     super(UserModel);
   }
+
   /**
    * @param {string} id
    */
