@@ -9,6 +9,19 @@ class PostController extends Controller {
   /**
    * @param {string} id
    */
+  async getComments(id) {
+    const post = await this.model.getComments(id);
+
+    if (!post) {
+      console.log('comments not found');
+      return {};
+    }
+    return post;
+  }
+
+  /**
+   * @param {string} id
+   */
   async get(id) {
     const post = await this.model.Get(id);
 
@@ -23,10 +36,12 @@ class PostController extends Controller {
    *
    * @param {string} title
    * @param {string} body
-   * @returns {Promise<void>}
+   * @param {string} userId
+   *
    */
-  async create(title, body) {
-    const post = new this.model(title, body, 'test', 'test');
+  async create(title, body, userId) {
+    const post = new this.model(title, body, userId, 'test');
+    console.log(post);
     return this.model.Insert(post);
   }
 
@@ -38,17 +53,20 @@ class PostController extends Controller {
   async delete(id) {
     return this.model.Delete(id);
   }
+
   /**
    *
    * @param {string} title
+   * @param {string} userId
    * @param {string} body
    * @param {string} id
-   * @returns {Promise<void>}
+   *
    */
 
-  async update(title, body,id) {
-    const update = new this.model(title, body, 'test', 'test');
+  async update(title, body, userId, id) {
+    const update = new this.model(title, body, userId, 'test');
     return this.model.update(id, update);
   }
 }
-  module.exports = PostController;
+
+module.exports = PostController;

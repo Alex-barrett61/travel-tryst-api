@@ -28,6 +28,24 @@ class PostModel extends Model {
   /**
    * @param {string} id
    */
+  static async getComments(id) {
+    try {
+      const rows = await this.postgres.query(
+        'SELECT id, body, user_id, post_id ' +
+        'FROM comments ' +
+        'WHERE post_id = $1;',
+        [id]
+      );
+      return rows[0];
+    }
+    catch (error) {
+      console.log('Error getting comments', error);
+      return {};
+    }
+  }
+  /**
+   * @param {string} id
+   */
   static async Get(id) {
     try {
       const rows = await this.postgres.query(
@@ -52,7 +70,6 @@ class PostModel extends Model {
   static async Insert(post) {
     try {
       const { id, title, body, userId, photoUrl } = post;
-
       await this.postgres.query(
         'INSERT INTO posts (id, title, body, user_id, photo_url)'
         + 'VALUES ($1, $2, $3, $4, $5);',
