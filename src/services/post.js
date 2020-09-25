@@ -6,6 +6,17 @@ class PostService extends Service {
     super(...args);
     this.controller = new PostController();
   }
+  /**
+   *
+   * @param {string} id - the id of a single post
+   * @returns {Promise<object>}
+   */
+  async getComments(id) {
+    console.log('fetching comments by id', id);
+    const post = await this.controller.getComments(id);
+    console.log('returning comments');
+    return post;
+  }
 
   /**
    *
@@ -20,8 +31,9 @@ class PostService extends Service {
   }
 
   async create(data) {
-    const { title, body } = data;
-    return this.controller.create(title, body);
+    console.log('got here')
+    const { title, body,userId } = data;
+    return this.controller.create(title, body,userId);
   }
 
   //async update(data) {
@@ -32,8 +44,8 @@ class PostService extends Service {
   }
 
   async update(id, data) {
-    const{title, body}= data;
-    return this.controller.update(title, body, id);
+    const{title, body,userId}= data;
+    return this.controller.update(title, body,userId, id);
   }
 }
 
