@@ -38,7 +38,7 @@ class UserController extends Controller {
    * @param {string} name
    * @param {string} password
    * @param {string} phone
-   * @returns {Promise<void>}
+   *
    */
   async create(email, name, password, phone)  {
     const user = new this.model(email, name,);
@@ -60,7 +60,7 @@ class UserController extends Controller {
    * @param {string} name
    * @param {string} password
    * @param {string} phone
-   * @returns {Promise<void>}
+   *
    */
 
   async update(id, email, name, password, phone) {

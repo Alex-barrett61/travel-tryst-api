@@ -17,14 +17,11 @@ class CommentController extends Controller {
       return {};
 
     }
-
     return comment;
-
   }
   /**
    *
    * @param {string} body
-   * @returns {Promise<void>}
    */
   async create(body) {
     const comment = new this.model( body);
@@ -34,7 +31,7 @@ class CommentController extends Controller {
    *
    * @param {string} body
    * @param {string} id
-   * @returns {Promise<void>}
+   *
    */
 
   async update( id, body) {
@@ -44,7 +41,6 @@ class CommentController extends Controller {
   /**
    *
    * @param {string} id
-   * @returns {Promise<boolean>}
    */
   async delete(id) {
     return this.model.Delete(id);

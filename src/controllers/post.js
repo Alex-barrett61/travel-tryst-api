@@ -37,7 +37,7 @@ class PostController extends Controller {
    * @param {string} title
    * @param {string} body
    * @param {string} userId
-   * @returns {Promise<void>}
+   *
    */
   async create(title, body, userId) {
     const post = new this.model(title, body, userId, 'test');
@@ -60,7 +60,7 @@ class PostController extends Controller {
    * @param {string} userId
    * @param {string} body
    * @param {string} id
-   * @returns {Promise<void>}
+   *
    */
 
   async update(title, body, userId, id) {
