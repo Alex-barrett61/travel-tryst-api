@@ -4,10 +4,16 @@
 class Service {
   request;
   response;
+  _user;
 
   constructor(request, response) {
     this.request = request;
     this.response = response;
+    this._user = this.request.user;
+  }
+
+  get user() {
+    return this._user;
   }
 }
 

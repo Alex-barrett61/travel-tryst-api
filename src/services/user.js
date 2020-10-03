@@ -4,7 +4,7 @@ const UserController = require('../controllers/user');
 class UserService extends Service {
   constructor(...args) {
     super(...args);
-    this.controller = new UserController();
+    this.controller = new UserController(this.user);
   }
 
   /**
@@ -32,13 +32,19 @@ class UserService extends Service {
   }
 
   async delete(id) {
-  return this.controller.delete(id);
-}
+    if (this.user.id === id) {
+      return this.controller.delete(id);
+    }
+    else {
+      return this.response.status(401).send({ message: 'unauthorized' });
+    }
+  }
 
   async update(id, data) {
-    const { email, name, password, phone }= data;
-    return this.controller.update(email, name, password, phone,id);
+    const { email, name, password, phone } = data;
+    return this.controller.update(email, name, password, phone, id);
   }
 
 }
+
 module.exports = UserService;

@@ -1,13 +1,16 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const yourPassword = "someRandomPasswordHere";
 
-bcrypt.hash(yourPassword, saltRounds, (err, hash) => {
-  // Now we can store the password hash in db.
-});
-
-  bcrypt.compare(myPlaintextPassword, hash, function(err, res) {
-  if res == true, password matched
-  else wrong password
+async function encrypt(password) {
+  const salt = await bcrypt.genSalt(saltRounds);
+  return await bcrypt.hash(password, salt);
 }
-);
+
+function comparePasswords(password, hashedPassword) {
+  return bcrypt.compare(password, hashedPassword);
+}
+
+module.exports = {
+  encrypt,
+  comparePasswords
+};

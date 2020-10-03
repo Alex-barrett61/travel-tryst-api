@@ -1,9 +1,10 @@
 const Controller = require('./controller');
 const UserModel = require('../models/user');
+const { encrypt } = require('../utils/encryption');
 
 class UserController extends Controller {
-  constructor() {
-    super(UserModel);
+  constructor(user) {
+    super(UserModel, user);
   }
 
   /**
@@ -40,11 +41,13 @@ class UserController extends Controller {
    * @param {string} phone
    *
    */
-  async create(email, name, password, phone)  {
-    const user = new this.model(email, name, password, phone);
-    console.log(user)
+  async create(email, name, password, phone) {
+    const hashedPassword = await encrypt(password);
+    const user = new this.model(name, email, hashedPassword, phone);
+    console.log(user);
     return this.model.Insert(user);
   }
+
   /**
    *
    * @param {string} id
@@ -53,6 +56,7 @@ class UserController extends Controller {
   async delete(id) {
     return this.model.Delete(id);
   }
+
   /**
    *
    * @param {string} id
@@ -65,8 +69,8 @@ class UserController extends Controller {
 
   async update(id, email, name, password, phone) {
     const update = new this.model(email, name);
-    return this.model.update(id,update);
+    return this.model.update(id, update);
   }
 }
 
-  module.exports = UserController;
+module.exports = UserController;

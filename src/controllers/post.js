@@ -2,8 +2,8 @@ const Controller = require('./controller');
 const PostModel = require('../models/post');
 
 class PostController extends Controller {
-  constructor() {
-    super(PostModel);
+  constructor(user) {
+    super(PostModel, user);
   }
 
   /**
@@ -66,6 +66,19 @@ class PostController extends Controller {
   async update(title, body, userId, id) {
     const update = new this.model(title, body, userId, 'test');
     return this.model.update(id, update);
+  }
+
+  /**
+   * @param {string} id
+   */
+  async getUserId(id) {
+    const userData = await this.model.GetUserId(id);
+
+    if (!userData) {
+      console.log('UserId not found');
+      return {};
+    }
+    return userData;
   }
 }
 

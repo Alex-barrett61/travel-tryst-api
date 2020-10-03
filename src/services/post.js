@@ -4,7 +4,7 @@ const PostController = require('../controllers/post');
 class PostService extends Service {
   constructor(...args) {
     super(...args);
-    this.controller = new PostController();
+    this.controller = new PostController(this.user);
   }
 
   /**
@@ -32,20 +32,30 @@ class PostService extends Service {
   }
 
   async create(data) {
-    const { title, body,userId } = data;
-    return this.controller.create(title, body,userId);
+    const { title, body } = data;
+    return this.controller.create(title, body, this.user.id);
   }
 
-  //async update(data) {
-
-  //}
   async delete(id) {
-    return this.controller.delete(id);
+    const { userId } = await this.controller.getUserId(id);
+    console.log({ userId, user: this.user.id });
+    if (this.user.id === userId) {
+      return this.controller.delete(id);
+    }
+    else {
+      return this.response.status(401).send({ message: 'unauthorized' });
+    }
   }
 
   async update(id, data) {
-    const{title, body,userId}= data;
-    return this.controller.update(title, body,userId, id);
+    const { userId } = await this.controller.getUserId(id);
+    if (this.user.id === userId) {
+      const { title, body, userId } = data;
+      return this.controller.update(title, body, userId, id);
+    }
+    else {
+      return this.response.status(401).send({ message: 'unauthorized' });
+    }
   }
 }
 

@@ -97,6 +97,24 @@ class CommentModel extends Model {
       return false;
     }
   }
+  /**
+   * @param {string} id
+   */
+  static async GetUserId(id) {
+    try {
+      const rows = await this.postgres.query(
+        'SELECT user_id AS "userId"' +
+        'FROM posts ' +
+        'WHERE id = $1;',
+        [id]
+      );
+      return rows[0];
+    }
+    catch (error) {
+      console.log('Error getting UserId', error);
+      return {};
+    }
+  }
 }
 
 module.exports = CommentModel;
