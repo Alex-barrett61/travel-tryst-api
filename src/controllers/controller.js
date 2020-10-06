@@ -3,13 +3,19 @@
  */
 class Controller {
   _model;
+  _user;
 
-  constructor(model) {
+  constructor(model, user) {
     this._model = model;
+    this._user = user;
   }
 
   get model() {
     return this._model;
+  }
+
+  get user() {
+    return this._user;
   }
 }
 

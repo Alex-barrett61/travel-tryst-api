@@ -16,22 +16,25 @@ const SessionService = require('./services/session');
  * pieces and scaled individually as needed.
  */
 function initRoutes(express) {
+  express.get('/health', async (req, res) => callService(HealthCheckService, 'healthCheck', [], req, res));
+  express.post('/user', async (req, res) => callService(UserService, 'create', ['body.data'], req, res));
+  express.get('/login/:email/:password', async (req, res) => callService(SessionService, 'login', ['params.email', 'params.password'], req, res));
+
   express.all('/*', async (req, res) => callMiddleware(SessionService, 'sessionMiddleware', [], req, res));
 
-  express.get('/login/:email/:password', async (req, res) => callService(SessionService, 'login', ['params.email', 'params.password'], req, res));
-  express.get('/health', async (req, res) => callService(HealthCheckService, 'healthCheck', [], req, res));
   express.get('/post/:id/comments', async (req, res) => callService(PostService, 'getComments', ['params.id'], req, res));
   express.get('/post/:id', async (req, res) => callService(PostService, 'get', ['params.id'], req, res));
   express.post('/post', async (req, res) => callService(PostService, 'create', ['body.data'], req, res));
   express.put('/post/:id', async (req, res) => callService(PostService, 'update', ['params.id', 'body.data'], req, res));
   express.delete('/post/:id', async (req, res) => callService(PostService, 'delete', ['params.id'], req, res));
+
   express.get('/comment/:id', async (req, res) => callService(CommentService, 'get', ['params.id'], req, res));
   express.post('/comment', async (req, res) => callService(CommentService, 'create', ['body.data'], req, res));
   express.put('/comment/:id', async (req, res) => callService(CommentService, 'update', ['params.id', 'body.data'], req, res));
   express.delete('/comment/:id', async (req, res) => callService(CommentService, 'delete', ['params.id'], req, res));
+
   express.get('/user/:id/posts', async (req, res) => callService(UserService, 'getPosts', ['params.id'], req, res));
   express.get('/user/:id', async (req, res) => callService(UserService, 'get', ['params.id'], req, res));
-  express.post('/user', async (req, res) => callService(UserService, 'create', ['body.data'], req, res));
   express.put('/user/:id', async (req, res) => callService(UserService, 'update', ['params.id', 'body.data'], req, res));
   express.delete('/user/:id', async (req, res) => callService(UserService, 'delete', ['params.id'], req, res));
 }

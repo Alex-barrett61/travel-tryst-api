@@ -66,11 +66,10 @@ class UserModel extends Model {
   static async Insert(user) {
     try {
       const { id, name, email, phone, password } = user;
-      console.log('got here', id);
       this.postgres.query(
         'INSERT INTO users (id, name, email, password, phone)'
         + 'VALUES ($1, $2, $3, $4, $5);',
-        [id, name, email, password, email]
+        [id, name, email, password, phone]
       );
       return { id };
     }
@@ -119,6 +118,18 @@ class UserModel extends Model {
     }
   }
 
+  static async MatchUserEmail(email) {
+    try {
+      return await this.postgres.query(
+        'SELECT id, name, email, phone, password FROM users WHERE email = $1;',
+        [email]
+      );
+    }
+    catch (error) {
+      console.log('Error matching user', error);
+      return {};
+    }
+  }
 }
 
 module.exports = UserModel;

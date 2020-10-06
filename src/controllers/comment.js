@@ -2,8 +2,8 @@ const Controller = require('./controller');
 const CommentModel = require('../models/comment');
 
 class CommentController extends Controller {
-  constructor() {
-    super(CommentModel);
+  constructor(user) {
+    super(CommentModel, user);
   }
 
   /**
@@ -19,14 +19,16 @@ class CommentController extends Controller {
     }
     return comment;
   }
+
   /**
    *
    * @param {string} body
    */
   async create(body) {
-    const comment = new this.model( body);
+    const comment = new this.model(body);
     return this.model.Insert(comment);
   }
+
   /**
    *
    * @param {string} body
@@ -34,10 +36,11 @@ class CommentController extends Controller {
    *
    */
 
-  async update( id, body) {
+  async update(id, body) {
     const update = new this.model(body);
     return this.model.update(id, update);
   }
+
   /**
    *
    * @param {string} id
@@ -45,5 +48,19 @@ class CommentController extends Controller {
   async delete(id) {
     return this.model.Delete(id);
   }
+
+  /**
+   * @param {string} id
+   */
+  async getUserId(id) {
+    const userData = await this.model.GetUserId(id);
+
+    if (!userData) {
+      console.log('UserId not found');
+      return {};
+    }
+    return userData;
+  }
 }
+
 module.exports = CommentController;

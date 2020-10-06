@@ -1,5 +1,6 @@
 const Service = require('./service');
 const SessionController = require('../controllers/session');
+const { comparePasswords } = require('../utils/encryption');
 
 class SessionService extends Service {
   constructor(request, response) {
@@ -9,7 +10,11 @@ class SessionService extends Service {
 
   async login(email, password) {
     console.log('logging in', email);
-    const user = await this.controller.matchUser(email, password);
+    const user = await this.controller.matchUser(email);
+    const match = await comparePasswords(password, user.password);
+    if (!match) {
+      return this.response.status(401).send({ message: 'invalid credentials' });
+    }
     const jwt = this.controller.generateJwt(user);
     return { jwt };
   }
@@ -18,11 +23,16 @@ class SessionService extends Service {
     return this.controller.verifyJwt(jwt);
   }
 
+  async parseJwt(jwt) {
+    return this.controller.parseJwt(jwt);
+  }
+
   async sessionMiddleware() {
     console.log('session middleware');
     try {
       const jwt = this.request.headers.authorization;
       if (await this.verifyJwt(jwt)) {
+        this.request.user = await this.parseJwt(jwt);
         return this.request.next();
       }
       else {

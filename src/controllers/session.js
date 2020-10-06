@@ -18,6 +18,7 @@ class SessionController extends Controller {
   }
 
   generateJwt(user) {
+    console.log(user, 'we fucked up');
     return jwt.sign(user, privateKey, { algorithm: 'RS256' });
   }
 
@@ -31,6 +32,11 @@ class SessionController extends Controller {
       console.log(error);
       return false;
     }
+  }
+
+  async parseJwt(jwtToken) {
+    const { id, name, email, phone } = jwt.verify(jwtToken, publicKey);
+    return { id, name, email, phone };
   }
 }
 
