@@ -20,12 +20,13 @@ class CommentService extends Service {
   }
 
   async create(data) {
-    const { body } = data;
-    return this.controller.create(body);
+    const { body, postId } = data;
+    return this.controller.create(body, this.user.id, postId);
   }
 
   async update(id, data) {
     const { userId } = await this.controller.getUserId(id);
+    console.log(this.user.id, userId);
     if (this.user.id === userId) {
       const { body } = data;
       return this.controller.update(body, id);

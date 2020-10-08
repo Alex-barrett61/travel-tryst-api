@@ -44,7 +44,7 @@ class CommentModel extends Model {
    *
    */
   static async Insert(comment) {
-    console.log('got here',comment)
+    console.log('got here', comment);
     try {
       const { id, body, userId, postId } = comment;
 
@@ -60,6 +60,7 @@ class CommentModel extends Model {
       return {};
     }
   }
+
   /**
    *
    * @param {string} id
@@ -67,7 +68,7 @@ class CommentModel extends Model {
    */
   static async update(id, update) {
     try {
-      const {body, userId, postId } = update;
+      const { body, userId, postId } = update;
       console.log(this.update);
       await this.postgres.query(
         'UPDATE comments SET id = $1, body = $2, user_id = $3, post_id = $4 WHERE id = $1;',
@@ -81,6 +82,7 @@ class CommentModel extends Model {
       return {};
     }
   }
+
   /**
    *
    * @param {string} id
@@ -97,6 +99,7 @@ class CommentModel extends Model {
       return false;
     }
   }
+
   /**
    * @param {string} id
    */
