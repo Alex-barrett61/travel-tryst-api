@@ -44,7 +44,6 @@ class CommentModel extends Model {
    *
    */
   static async Insert(comment) {
-    console.log('got here', comment);
     try {
       const { id, body, userId, postId } = comment;
 

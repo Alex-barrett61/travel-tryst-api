@@ -26,7 +26,6 @@ class CommentService extends Service {
 
   async update(id, data) {
     const { userId } = await this.controller.getUserId(id);
-    console.log(this.user.id, userId);
     if (this.user.id === userId) {
       const { body } = data;
       return this.controller.update(body, id);
