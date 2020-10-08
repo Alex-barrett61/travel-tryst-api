@@ -41,10 +41,15 @@ class UserService extends Service {
   }
 
   async update(id, data) {
-    const { email, name, password, phone } = data;
-    return this.controller.update(email, name, password, phone, id);
-  }
+    if (this.user.id === id) {
+      const { email, name, password, phone } = data;
+      return this.controller.update(email, name, password, phone, id);
+    }
+    else {
+      return this.response.status(401).send({ message: 'unauthorized' });
+    }
 
+  }
 }
 
 module.exports = UserService;

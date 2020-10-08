@@ -21,11 +21,12 @@ class CommentController extends Controller {
   }
 
   /**
-   *
+   * @param {string} postId
    * @param {string} body
+   * @param {string} userId
    */
-  async create(body) {
-    const comment = new this.model(body);
+  async create(body, userId, postId) {
+    const comment = new this.model(body, userId, postId);
     return this.model.Insert(comment);
   }
 
