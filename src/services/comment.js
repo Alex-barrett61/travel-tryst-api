@@ -19,8 +19,8 @@ class CommentService extends Service {
     return comment;
   }
 
-  async create(data) {
-    const { body, postId } = data;
+  async create(postId, data) {
+    const { body } = data;
     return this.controller.create(body, this.user.id, postId);
   }
 

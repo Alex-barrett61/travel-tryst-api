@@ -18,7 +18,6 @@ class SessionController extends Controller {
   }
 
   generateJwt(user) {
-    console.log(user, 'we fucked up');
     return jwt.sign(user, privateKey, { algorithm: 'RS256' });
   }
 

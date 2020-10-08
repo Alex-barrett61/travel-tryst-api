@@ -22,16 +22,16 @@ function initRoutes(express) {
 
   express.all('/*', async (req, res) => callMiddleware(SessionService, 'sessionMiddleware', [], req, res));
 
+  express.get('/post/:postId/comment/:id', async (req, res) => callService(CommentService, 'get', ['params.id'], req, res));
+  express.post('/post/:postId/comment', async (req, res) => callService(CommentService, 'create', ['params.postId', 'body.data'], req, res));
+  express.put('/post/:postId/comment/:id', async (req, res) => callService(CommentService, 'update', ['params.postId', 'params.id', 'body.data'], req, res));
+  express.delete('/post/:postId/comment/:id', async (req, res) => callService(CommentService, 'delete', ['params.postId', 'params.id'], req, res));
+
   express.get('/post/:id/comments', async (req, res) => callService(PostService, 'getComments', ['params.id'], req, res));
   express.get('/post/:id', async (req, res) => callService(PostService, 'get', ['params.id'], req, res));
   express.post('/post', async (req, res) => callService(PostService, 'create', ['body.data'], req, res));
   express.put('/post/:id', async (req, res) => callService(PostService, 'update', ['params.id', 'body.data'], req, res));
   express.delete('/post/:id', async (req, res) => callService(PostService, 'delete', ['params.id'], req, res));
-
-  express.get('/comment/:id', async (req, res) => callService(CommentService, 'get', ['params.id'], req, res));
-  express.post('/comment', async (req, res) => callService(CommentService, 'create', ['body.data'], req, res));
-  express.put('/comment/:id', async (req, res) => callService(CommentService, 'update', ['params.id', 'body.data'], req, res));
-  express.delete('/comment/:id', async (req, res) => callService(CommentService, 'delete', ['params.id'], req, res));
 
   express.get('/user/:id/posts', async (req, res) => callService(UserService, 'getPosts', ['params.id'], req, res));
   express.get('/user/:id', async (req, res) => callService(UserService, 'get', ['params.id'], req, res));
