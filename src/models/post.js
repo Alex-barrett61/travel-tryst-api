@@ -39,7 +39,7 @@ class PostModel extends Model {
       return rows[0];
     }
     catch (error) {
-      console.log('Error getting comments', error);
+      this.logger.error('Error getting comments', error);
       return {};
     }
   }
@@ -57,7 +57,7 @@ class PostModel extends Model {
       return rows[0];
     }
     catch (error) {
-      console.log('Error getting post', error);
+      this.logger.error('Error getting post', error);
       return {};
     }
   }
@@ -78,7 +78,7 @@ class PostModel extends Model {
       return { id };
     }
     catch (error) {
-      console.log('Error creating post', error);
+      this.logger.error('Error creating post', error);
       return {};
     }
   }
@@ -89,13 +89,13 @@ class PostModel extends Model {
    *
    */
   static async Delete(id) {
-    console.log(id);
+    this.logger.info(id);
     try {
       await this.postgres.query('DELETE FROM posts WHERE id = $1 RETURNING *;', [id]);
       return true;
     }
     catch (error) {
-      console.log('Error deleting post', error);
+      this.logger.error('Error deleting post', error);
       return false;
     }
   }
@@ -108,7 +108,7 @@ class PostModel extends Model {
   static async update(id, update) {
     try {
       const { title, body, userId, photoUrl } = update;
-      console.log(this.update);
+      this.logger.info(this.update);
       await this.postgres.query(
         'UPDATE posts ' +
         'SET id = $1, title = $2, body = $3, user_id = $4, photo_url = $5 ' +
@@ -119,7 +119,7 @@ class PostModel extends Model {
       return { id };
     }
     catch (error) {
-      console.log('Error updating post', error);
+      this.logger.error('Error updating post', error);
       return {};
     }
   }
@@ -138,7 +138,7 @@ class PostModel extends Model {
       return rows[0];
     }
     catch (error) {
-      console.log('Error getting UserId', error);
+      this.logger.error('Error getting UserId', error);
       return {};
     }
   }

@@ -9,7 +9,7 @@ class SessionService extends Service {
   }
 
   async login(email, password) {
-    console.log('logging in', email);
+    this.logger.info('logging in', email);
     const user = await this.controller.matchUser(email);
     const match = await comparePasswords(password, user.password);
     if (!match) {
@@ -28,7 +28,7 @@ class SessionService extends Service {
   }
 
   async sessionMiddleware() {
-    console.log('session middleware');
+    this.logger.info('session middleware');
     try {
       const jwt = this.request.headers.authorization;
       if (await this.verifyJwt(jwt)) {
@@ -40,7 +40,7 @@ class SessionService extends Service {
       }
     }
     catch (error) {
-      console.log(error);
+      this.logger.error(error);
       throw error;
     }
   }

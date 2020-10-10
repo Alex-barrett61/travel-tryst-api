@@ -1,5 +1,7 @@
 const Service = require('./service');
 const UserController = require('../controllers/user');
+const logger = require('../utils/logger');
+
 
 class UserService extends Service {
   constructor(...args) {
@@ -13,16 +15,16 @@ class UserService extends Service {
    * @param id
    */
   async getPosts(id) {
-    console.log('fetching posts by id',);
+    this.logger.info('fetching posts by id');
     const user = await this.controller.getPosts(id);
     console.log('returning user', user);
     return id;
   }
 
   async get(id) {
-    console.log('fetching user by id', id);
+    this.logger.info('fetching user by id', id);
     const user = await this.controller.get(id);
-    console.log('returning user', user);
+    this.logger.info('returning user', user);
     return user;
   }
 
