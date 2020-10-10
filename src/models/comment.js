@@ -33,7 +33,7 @@ class CommentModel extends Model {
       return rows[0];
     }
     catch (error) {
-      console.log('Error getting comment', error);
+      this.logger.error('Error getting comment', error);
       return {};
     }
   }
@@ -55,7 +55,7 @@ class CommentModel extends Model {
       return { id };
     }
     catch (error) {
-      console.log('Error creating comment', error);
+      this.logger.error('Error creating comment', error);
       return {};
     }
   }
@@ -68,7 +68,7 @@ class CommentModel extends Model {
   static async update(id, update) {
     try {
       const { body, userId, postId } = update;
-      console.log(this.update);
+      this.logger.error(this.update);
       await this.postgres.query(
         'UPDATE comments SET id = $1, body = $2, user_id = $3, post_id = $4 WHERE id = $1;',
         [id, body, userId, postId]
@@ -77,7 +77,7 @@ class CommentModel extends Model {
       return { id };
     }
     catch (error) {
-      console.log('Error updating comment', error);
+      this.logger.error('Error updating comment', error);
       return {};
     }
   }
@@ -88,13 +88,13 @@ class CommentModel extends Model {
    *
    */
   static async Delete(id) {
-    console.log(id);
+    this.logger.info(id);
     try {
       await this.postgres.query('DELETE FROM comments WHERE id = $1 RETURNING *;', [id]);
       return true;
     }
     catch (error) {
-      console.log('Error deleting comments', error);
+      this.logger.error('Error deleting comments', error);
       return false;
     }
   }
@@ -113,7 +113,7 @@ class CommentModel extends Model {
       return rows[0];
     }
     catch (error) {
-      console.log('Error getting UserId', error);
+      this.logger.error('Error getting UserId', error);
       return {};
     }
   }

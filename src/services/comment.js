@@ -13,9 +13,9 @@ class CommentService extends Service {
    * @returns {Promise<object>}
    */
   async get(id) {
-    console.log('fetching comment by id', id);
+    this.logger.info('fetching comment by id', id);
     const comment = await this.controller.get(id);
-    console.log('returning comment', comment);
+    this.logger.info('returning comment', comment);
     return comment;
   }
 

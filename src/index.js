@@ -4,6 +4,7 @@ const config = require('config');
 const { postgres } = require('./data-sources/connections');
 const Server = require('./server.js');
 const initRoutes = require('./routes');
+const logger = require('./utils/logger');
 
 const { port } = config;
 
@@ -13,7 +14,7 @@ const { port } = config;
  * @returns {Promise<Server>}
  */
 async function bootUp() {
-  console.log('connecting');
+  logger.info('connecting');
   await postgres.connect();
   const server = new Server(port);
   await server.start();
@@ -29,17 +30,17 @@ async function bootUp() {
  * function to be triggered in order to shut down the application gracefully.
  */
 async function shutDown(server) {
-  console.log('\n shutting down');
+  logger.info('\n shutting down');
   await server.stop();
   await postgres.disconnect();
-  console.log('done');
+  logger.info('done');
 }
 
 /**
  * trigger the startup process
  */
 bootUp().then((server) => {
-  console.log('...idle');
+  logger.info('...idle');
   process.on('SIGTERM', () => shutDown(server));
   process.on('SIGINT', () => shutDown(server));
 }).catch(console.log); // log any errors that occur while starting up

@@ -36,7 +36,7 @@ class UserModel extends Model {
       return rows[0];
     }
     catch (error) {
-      console.log('Error getting comment', error);
+      this.logger.error('Error getting comment', error);
       return {};
     }
   }
@@ -53,7 +53,7 @@ class UserModel extends Model {
       return rows[0];
     }
     catch (error) {
-      console.log('Error getting comment', error);
+      this.logger.error('Error getting comment', error);
       return {};
     }
   }
@@ -74,7 +74,7 @@ class UserModel extends Model {
       return { id };
     }
     catch (error) {
-      console.log('Error creating user', error);
+      this.logger.error('Error creating user', error);
       return {};
     }
   }
@@ -85,13 +85,13 @@ class UserModel extends Model {
    *
    */
   static async Delete(id) {
-    console.log(id);
+    this.logger.info(id);
     try {
       await this.postgres.query('DELETE FROM users WHERE id = $1 RETURNING *;', [id]);
       return true;
     }
     catch (error) {
-      console.log('Error deleting users', error);
+      this.logger.error('Error deleting users', error);
       return false;
     }
   }
@@ -101,10 +101,10 @@ class UserModel extends Model {
    * @param {string} id
    * @param {object} update
    */
-  static async update(id, update) {
+  static async Update(id, update) {
     try {
       const { id, email, name, phone, password } = update;
-      console.log(this.update);
+      this.logger.info(this.Update);
       await this.postgres.query(
         'UPDATE users SET id = $1, name = $2, email = $3, password = $4, phone = $5 WHERE id = $1;',
         [id, email, name, phone, password]
@@ -113,7 +113,7 @@ class UserModel extends Model {
       return { id };
     }
     catch (error) {
-      console.log('Error updating user', error);
+      this.logger.error('Error updating user', error);
       return {};
     }
   }
@@ -126,7 +126,7 @@ class UserModel extends Model {
       );
     }
     catch (error) {
-      console.log('Error matching user', error);
+      this.logger.error('Error matching user', error);
       return {};
     }
   }

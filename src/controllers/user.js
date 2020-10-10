@@ -14,7 +14,7 @@ class UserController extends Controller {
     const user = await this.model.getPosts(id);
 
     if (!user) {
-      console.log('posts not found');
+      this.logger.error('posts not found');
       return {};
     }
     return user;
@@ -27,7 +27,7 @@ class UserController extends Controller {
     const user = await this.model.Get(id);
 
     if (!user) {
-      console.log('user not found');
+      this.logger.error('user not found');
       return {};
     }
     return user;
@@ -44,7 +44,7 @@ class UserController extends Controller {
   async create(email, name, password, phone) {
     const hashedPassword = await encrypt(password);
     const user = new this.model(name, email, hashedPassword, phone);
-    console.log(user);
+    this.logger.info(user);
     return this.model.Insert(user);
   }
 

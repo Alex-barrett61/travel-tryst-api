@@ -13,9 +13,9 @@ class PostService extends Service {
    * @returns {Promise<object>}
    */
   async getComments(id) {
-    console.log('fetching comments by id', id);
+    this.logger.info('fetching comments by id', id);
     const post = await this.controller.getComments(id);
-    console.log('returning comments');
+    this.logger.info('returning comments');
     return post;
   }
 
@@ -25,9 +25,9 @@ class PostService extends Service {
    * @returns {Promise<object>}
    */
   async get(id) {
-    console.log('fetching post by id', id);
+    this.logger.info('fetching post by id', id);
     const post = await this.controller.get(id);
-    console.log('returning post', post);
+    this.logger.info('returning post', post);
     return post;
   }
 
@@ -38,7 +38,7 @@ class PostService extends Service {
 
   async delete(id) {
     const { userId } = await this.controller.getUserId(id);
-    console.log({ userId, user: this.user.id });
+    this.logger.info({ userId, user: this.user.id });
     if (this.user.id === userId) {
       return this.controller.delete(id);
     }

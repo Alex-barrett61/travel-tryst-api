@@ -28,7 +28,7 @@ class SessionController extends Controller {
       return !!user.id;
     }
     catch (error) {
-      console.log(error);
+      this.logger.error(error, 'error getting jwt token');
       return false;
     }
   }
