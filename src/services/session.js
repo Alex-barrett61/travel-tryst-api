@@ -12,6 +12,7 @@ class SessionService extends Service {
     this.logger.info({ email }, 'logging in');
     const user = await this.controller.matchUser(email);
     const match = await comparePasswords(password, user.password);
+
     if (!match) {
       this.logger.error({ email }, 'unauthorized');
       return this.response.status(401).send({ message: 'invalid credentials' });
@@ -32,8 +33,10 @@ class SessionService extends Service {
     this.logger.info('session middleware');
     try {
       const jwt = this.request.headers.authorization;
+
       if (await this.verifyJwt(jwt)) {
         this.request.user = await this.parseJwt(jwt);
+        this.logger.info({ user: this.request.user });
         return this.request.next();
       }
       else {

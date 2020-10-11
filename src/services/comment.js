@@ -14,17 +14,20 @@ class CommentService extends Service {
    */
   async get(id) {
     this.logger.info({ id }, 'fetching comment by id');
+
     const comment = await this.controller.get(id);
     this.logger.info({ comment }, 'returning comment');
     return comment;
   }
 
   async create(postId, data) {
+    this.logger.info({ postId, data }, 'creating comment');
     const { body } = data;
     return this.controller.create(body, this.user.id, postId);
   }
 
   async update(id, data) {
+    this.logger.info({ id, data }, 'updating comment');
     const { userId } = await this.controller.getUserId(id);
     if (this.user.id === userId) {
       const { body } = data;
@@ -37,6 +40,7 @@ class CommentService extends Service {
   }
 
   async delete(id) {
+    this.logger.info({ id }, 'deleting comment');
     const { userId } = await this.controller.getUserId(id);
     if (this.user.id === userId) {
       return this.controller.delete(id);
