@@ -9,10 +9,11 @@ class SessionService extends Service {
   }
 
   async login(email, password) {
-    this.logger.info('logging in', email);
+    this.logger.info({ email }, 'logging in');
     const user = await this.controller.matchUser(email);
     const match = await comparePasswords(password, user.password);
     if (!match) {
+      this.logger.error({ email }, 'unauthorized');
       return this.response.status(401).send({ message: 'invalid credentials' });
     }
     const jwt = this.controller.generateJwt(user);
@@ -36,6 +37,7 @@ class SessionService extends Service {
         return this.request.next();
       }
       else {
+        this.logger.error('unauthorized');
         return this.response.status(401).send({ message: 'unauthorized' });
       }
     }

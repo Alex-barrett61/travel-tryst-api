@@ -13,7 +13,7 @@ class CommentController extends Controller {
     const comment = await this.model.Get(id);
 
     if (!comment) {
-      this.logger.info('comment not found');
+      this.logger.info({ id }, 'comment not found');
       return {};
 
     }
@@ -57,7 +57,7 @@ class CommentController extends Controller {
     const userData = await this.model.GetUserId(id);
 
     if (!userData) {
-      this.logger.error('UserId not found');
+      this.logger.error({ id, userData }, 'userId not found');
       return {};
     }
     return userData;

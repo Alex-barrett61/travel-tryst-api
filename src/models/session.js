@@ -14,7 +14,7 @@ class SessionModel extends Model {
       return rows[0];
     }
     catch (error) {
-      this.logger.error('Error logging in', error);
+      this.logger.error({ email, error }, 'error logging in');
       return {};
     }
   }

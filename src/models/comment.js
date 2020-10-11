@@ -33,7 +33,7 @@ class CommentModel extends Model {
       return rows[0];
     }
     catch (error) {
-      this.logger.error('Error getting comment', error);
+      this.logger.error({ id, error }, 'error getting comment');
       return {};
     }
   }
@@ -55,7 +55,7 @@ class CommentModel extends Model {
       return { id };
     }
     catch (error) {
-      this.logger.error('Error creating comment', error);
+      this.logger.error({ comment, error }, 'error creating comment');
       return {};
     }
   }
@@ -77,7 +77,7 @@ class CommentModel extends Model {
       return { id };
     }
     catch (error) {
-      this.logger.error('Error updating comment', error);
+      this.logger.error({ id, update, error }, 'error updating comment');
       return {};
     }
   }
@@ -94,7 +94,7 @@ class CommentModel extends Model {
       return true;
     }
     catch (error) {
-      this.logger.error('Error deleting comments', error);
+      this.logger.error({ id, error }, 'error deleting comments');
       return false;
     }
   }
@@ -113,7 +113,7 @@ class CommentModel extends Model {
       return rows[0];
     }
     catch (error) {
-      this.logger.error('Error getting UserId', error);
+      this.logger.error({ id, error }, 'error getting UserId');
       return {};
     }
   }

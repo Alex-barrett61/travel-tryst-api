@@ -17,14 +17,14 @@ class UserService extends Service {
   async getPosts(id) {
     this.logger.info('fetching posts by id');
     const user = await this.controller.getPosts(id);
-    console.log('returning user', user);
+    console.log({ id, user }, 'returning user');
     return id;
   }
 
   async get(id) {
-    this.logger.info('fetching user by id', id);
+    this.logger.info({ id }, 'fetching user by id');
     const user = await this.controller.get(id);
-    this.logger.info('returning user', user);
+    this.logger.info({ user }, 'returning user');
     return user;
   }
 
@@ -38,6 +38,7 @@ class UserService extends Service {
       return this.controller.delete(id);
     }
     else {
+      this.logger.error({ id }, 'unauthorized');
       return this.response.status(401).send({ message: 'unauthorized' });
     }
   }
@@ -48,6 +49,7 @@ class UserService extends Service {
       return this.controller.update(email, name, password, phone, id);
     }
     else {
+      this.logger.error({ id, data }, 'unauthorized');
       return this.response.status(401).send({ message: 'unauthorized' });
     }
 

@@ -13,9 +13,9 @@ class CommentService extends Service {
    * @returns {Promise<object>}
    */
   async get(id) {
-    this.logger.info('fetching comment by id', id);
+    this.logger.info({ id }, 'fetching comment by id');
     const comment = await this.controller.get(id);
-    this.logger.info('returning comment', comment);
+    this.logger.info({ comment }, 'returning comment');
     return comment;
   }
 
@@ -31,6 +31,7 @@ class CommentService extends Service {
       return this.controller.update(body, id);
     }
     else {
+      this.logger.error({ id, data }, 'unauthorized');
       return this.response.status(401).send({ message: 'unauthorized' });
     }
   }
@@ -41,6 +42,7 @@ class CommentService extends Service {
       return this.controller.delete(id);
     }
     else {
+      this.logger.error({ id }, 'unauthorized');
       return this.response.status(401).send({ message: 'unauthorized' });
     }
   }

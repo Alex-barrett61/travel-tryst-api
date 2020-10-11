@@ -25,24 +25,27 @@ class PostService extends Service {
    * @returns {Promise<object>}
    */
   async get(id) {
-    this.logger.info('fetching post by id', id);
+    this.logger.info({ id }, 'fetching post by id');
     const post = await this.controller.get(id);
-    this.logger.info('returning post', post);
+    this.logger.info({ post }, 'returning post');
     return post;
   }
 
   async create(data) {
     const { title, body } = data;
+    this.logger.info({ title, body }, 'creating post');
     return this.controller.create(title, body, this.user.id);
   }
 
   async delete(id) {
+    this.logger.info({ id }, 'deleting post');
     const { userId } = await this.controller.getUserId(id);
     this.logger.info({ userId, user: this.user.id });
     if (this.user.id === userId) {
       return this.controller.delete(id);
     }
     else {
+      this.logger.error({ id }, 'unauthorized');
       return this.response.status(401).send({ message: 'unauthorized' });
     }
   }
@@ -54,6 +57,7 @@ class PostService extends Service {
       return this.controller.update(title, body, userId, id);
     }
     else {
+      this.logger.error({ id, data }, 'unauthorized');
       return this.response.status(401).send({ message: 'unauthorized' });
     }
   }

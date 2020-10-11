@@ -39,10 +39,11 @@ class PostModel extends Model {
       return rows[0];
     }
     catch (error) {
-      this.logger.error('Error getting comments', error);
+      this.logger.error('error getting comments', error);
       return {};
     }
   }
+
   /**
    * @param {string} id
    */
@@ -57,7 +58,7 @@ class PostModel extends Model {
       return rows[0];
     }
     catch (error) {
-      this.logger.error('Error getting post', error);
+      this.logger.error({ id, error }, 'error getting post');
       return {};
     }
   }
@@ -78,7 +79,7 @@ class PostModel extends Model {
       return { id };
     }
     catch (error) {
-      this.logger.error('Error creating post', error);
+      this.logger.error({ post, error }, 'error creating post');
       return {};
     }
   }
@@ -95,7 +96,7 @@ class PostModel extends Model {
       return true;
     }
     catch (error) {
-      this.logger.error('Error deleting post', error);
+      this.logger.error({ id, error }, 'error deleting post');
       return false;
     }
   }
@@ -119,7 +120,7 @@ class PostModel extends Model {
       return { id };
     }
     catch (error) {
-      this.logger.error('Error updating post', error);
+      this.logger.error({ id, update, error }, 'Error updating post');
       return {};
     }
   }
@@ -129,7 +130,7 @@ class PostModel extends Model {
    */
   static async GetUserId(id) {
     try {
-      const rows = await this.postgres.query(
+      const rows = this.postgres.query(
         'SELECT user_id AS "userId"' +
         'FROM posts ' +
         'WHERE id = $1;',
@@ -138,7 +139,7 @@ class PostModel extends Model {
       return rows[0];
     }
     catch (error) {
-      this.logger.error('Error getting UserId', error);
+      this.logger.error({ id, error }, 'Error getting UserId');
       return {};
     }
   }

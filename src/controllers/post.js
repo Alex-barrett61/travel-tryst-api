@@ -13,7 +13,7 @@ class PostController extends Controller {
     const post = await this.model.getComments(id);
 
     if (!post) {
-      this.logger.error('comments not found');
+      this.logger.error({ id, post }, 'comments not found');
       return {};
     }
     return post;
@@ -26,7 +26,7 @@ class PostController extends Controller {
     const post = await this.model.Get(id);
 
     if (!post) {
-      this.logger.error('post not found');
+      this.logger.error({ id, post }, 'post not found');
       return {};
     }
     return post;
@@ -41,7 +41,7 @@ class PostController extends Controller {
    */
   async create(title, body, userId) {
     const post = new this.model(title, body, userId, 'test');
-    this.logger.info(post);
+    this.logger.info({ post });
     return this.model.Insert(post);
   }
 
@@ -75,7 +75,7 @@ class PostController extends Controller {
     const userData = await this.model.GetUserId(id);
 
     if (!userData) {
-      this.logger.error('UserId not found');
+      this.logger.error('userId not found');
       return {};
     }
     return userData;

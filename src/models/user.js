@@ -36,7 +36,7 @@ class UserModel extends Model {
       return rows[0];
     }
     catch (error) {
-      this.logger.error('Error getting comment', error);
+      this.logger.error({ id, error }, 'Error getting comment');
       return {};
     }
   }
@@ -53,7 +53,7 @@ class UserModel extends Model {
       return rows[0];
     }
     catch (error) {
-      this.logger.error('Error getting comment', error);
+      this.logger.error({ id, error }, 'Error getting comment');
       return {};
     }
   }
@@ -74,7 +74,7 @@ class UserModel extends Model {
       return { id };
     }
     catch (error) {
-      this.logger.error('Error creating user', error);
+      this.logger.error({ user, error }, 'Error creating user');
       return {};
     }
   }
@@ -91,7 +91,7 @@ class UserModel extends Model {
       return true;
     }
     catch (error) {
-      this.logger.error('Error deleting users', error);
+      this.logger.error({ id, error }, 'error deleting users');
       return false;
     }
   }
@@ -113,7 +113,7 @@ class UserModel extends Model {
       return { id };
     }
     catch (error) {
-      this.logger.error('Error updating user', error);
+      this.logger.error({ id, update, error }, 'error updating user');
       return {};
     }
   }
@@ -126,7 +126,7 @@ class UserModel extends Model {
       );
     }
     catch (error) {
-      this.logger.error('Error matching user', error);
+      this.logger.error({ email, error }, 'error matching user');
       return {};
     }
   }
