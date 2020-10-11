@@ -13,7 +13,6 @@ class PostModel extends Model {
    * @param {string} body
    * @param {string} userId
    * @param {string} photoUrl
-   * @param {number} likes
    */
   constructor(title, body, userId, photoUrl) {
     super('post');
