@@ -10,8 +10,17 @@ class SessionService extends Service {
 
   async login(email, password) {
     this.logger.info({ email }, 'logging in');
-    const user = await this.controller.matchUser(email);
-    const match = await comparePasswords(password, user.password);
+    let match;
+    let user;
+
+    try {
+      user = await this.controller.matchUser(email);
+      match = await comparePasswords(password, user.password);
+    }
+    catch (error) {
+      this.logger.error({ error }, 'error logging in');
+      return this.response.status(500).send({ message: 'login error' });
+    }
 
     if (!match) {
       this.logger.error({ email }, 'unauthorized');
