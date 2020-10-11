@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const logger = require('./utils/logger');
 
 /**
  * our express server. starts up on the provided point and applies the middleware we need
@@ -17,7 +18,7 @@ class Server {
 
   async start() {
     this.listener = await this.express.listen(this.port, () => {
-      console.log(`server running on port ${this.port}.`);
+      logger.info(`server running on port ${this.port}.`);
     });
   }
 
