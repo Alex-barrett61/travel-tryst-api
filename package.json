@@ -15,6 +15,7 @@
     "bunyan": "^1.8.14",
     "bunyan-format": "^0.2.1",
     "config": "^3.3.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "format": "^0.2.2",
     "jsonwebtoken": "^8.5.1",
