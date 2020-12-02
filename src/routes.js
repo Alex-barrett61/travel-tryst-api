@@ -18,7 +18,7 @@ const SessionService = require('./services/session');
 function initRoutes(express) {
   express.get('/health', async (req, res) => callService(HealthCheckService, 'healthCheck', [], req, res));
   express.post('/user', async (req, res) => callService(UserService, 'create', ['body.data'], req, res));
-  express.get('/login/:email/:password', async (req, res) => callService(SessionService, 'login', ['params.email', 'params.password'], req, res));
+  express.post('/login/:email/:password', async (req, res) => callService(SessionService, 'login', ['params.email', 'params.password'], req, res));
 
   express.all('/*', async (req, res) => callMiddleware(SessionService, 'sessionMiddleware', [], req, res));
 

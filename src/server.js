@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const logger = require('./utils/logger');
 
 /**
@@ -14,6 +15,7 @@ class Server {
     this.port = port;
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: true, }));
+    this.express.use(cors());
   }
 
   async start() {
